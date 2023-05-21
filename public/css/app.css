@@ -1,0 +1,87 @@
+.bod{
+    width: 100%;
+}
+.wrapper{
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+    gap:2.5rem;
+    margin: 2.5rem auto 0 auto;
+    width: 100%;
+    max-width: 1415px;
+    padding: 0 0 0 0rem;
+}
+#guide-content{
+    background-color: rgb(203, 203, 203);
+    width: 100%;
+    padding: 20px 0 20px 0;
+}
+.redirects-place{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:40em;
+}
+.redirects{
+    display:flex;
+    gap:50px;
+}
+.foti{
+    background-color: rgb(203, 203, 203);
+    padding: 20px 0 20px 0;
+    width: 100%;
+}
+.fot{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+a{
+    font-family: "Open Sans";
+    text-decoration-line: none;
+    color:rgb(134, 134, 134) ;
+}
+.tittle{
+    font-family: sans-serif;
+    color:rgb(134, 134, 134) ;
+}
+.home-content{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+.posts{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+.publish-part{
+    display: flex;
+    flex-direction: column;
+    max-width: 1210px;
+}
+.content-post{
+    padding-bottom: 8rem;
+}
+button{
+    margin-top: 25px;
+    border: none;
+    width: 4rem;
+    padding: 9px 0 9px 0;
+    background-color: rgb(83, 83, 244);
+    color: aliceblue;
+    border-radius: 5px;
+}
+
+button:hover{
+    opacity: 70%;
+}
+
+.redirect{
+    color: rgb(47, 47, 47);
+}
+.redirect:hover{
+    opacity: 80%;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{
+    margin:0;
+    padding: 0;
+}

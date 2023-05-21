@@ -1,0 +1,20 @@
+<%-include("head")-%>
+<div class=".bod">
+<div class="wrapper">
+<div class="home-content">
+  <h1>Home</h1>
+  <p>Pellentesque ultrices enim non fermentum auctor. Sed diam urna, vehicula eget elit at, egestas tristique orci. Suspendisse ultrices dictum nulla, id viverra mauris auctor vel. Proin tristique tortor eget ex fringilla iaculis. Proin non fermentum lacus. Vestibulum tincidunt, sapien at posuere euismod, ex diam facilisis justo, ac porttitor arcu sapien non sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut ligula auctor, porta mi sed, aliquam odio. Ut vitae nisl in nisi feugiat gravida vel at ex. Aenean finibus consectetur erat, eu laoreet risus porttitor quis.</p>
+</div>
+<%composesA.forEach(function(x){%>
+  <div class="posts">
+  <h1><%=x.title%></h1>
+  <p class="text"><%=x.post%> 
+    <%if(x.post.length >= 100){%>
+    <a class ="redirect" href="/posts/<%=x.urlName%>">...Read more</a>
+    <%}%>
+  </p>
+</div>
+<%})%>
+</div>
+</div>
+<%-include("footer")-%>
