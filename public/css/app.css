@@ -6,9 +6,9 @@
     display:flex;
     flex-direction: column;
     gap:2.5rem;
-    justify-content: center;
-    align-items: center;
+    margin: 2.5rem auto 0 auto;
     width: 100%;
+    max-width: 1415px;
 }
 #guide-content{
     background-color: rgb(203, 203, 203);
