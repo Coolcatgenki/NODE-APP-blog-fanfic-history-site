@@ -1,0 +1,33 @@
+<%-include("../partials/head-editor");-%>
+
+<div class="wrapper">
+    <div class="published-content">
+<form action="/publish" method="post">
+    <div class="publish-part">
+        <input type="text" class="content-post" name="title" placeholder="Title">
+        <textarea autofocus="true" onfocus="textAreaAdjust(this);" onkeyup="textAreaAdjust(this)" onclick="textAreaAdjust(this)" cols="40"  class="content-post" type="text" name="post" placeholder="Start Writting"></textarea>
+        <button class="button" type="submit" name="button1" value="publish">Publish</button>
+    </div>
+</form>
+
+   <div id="composes"> 
+<% composesA.forEach(function(compose){%>
+   <div id="compose">
+    <h1><%=compose.title%></h1>
+    <a class="edit-a" href= "/edit/<%=compose.id%>" >EDIT</a>
+    <form action="/delete" method="post">
+    <button class="delete-button"name="idDeleteCompose" value= "<%=compose.id%>"> DELETE</button>
+    </form>
+   </div>
+<%})%>
+    </div>
+
+</div>
+
+<form action="/logout" method="post">
+    <button class="logout-button" type="submit">Log Out</button>
+</form>
+
+</div>
+
+<%-include("../partials/footer");-%>

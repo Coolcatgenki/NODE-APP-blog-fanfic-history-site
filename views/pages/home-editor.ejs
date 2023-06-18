@@ -1,0 +1,22 @@
+<%-include("../partials/head-publish");-%>
+<body>
+<div class="wrapper">
+  <div class="published-content">
+<div class="home-content">
+  <h1>SAMPLE HISTORY</h1>
+  <p>This is a spectacular story about a boy who will pass through a lot of things in this sample history!</p>
+</div>
+<%composesA.forEach(function(x){%>
+  <div class="posts">
+  <h1><%=x.title%></h1>
+  <p class="text"><%=x.post%> 
+    <%if(x.post.length >= 100){%>
+    <a class ="redirect" href="/posts/<%=x.urlName%>">...Read more</a>
+    <%}%>
+  </p>
+</div>
+<%})%>
+</div>
+</div>
+</body>
+<%-include("../partials/footer")-%>
