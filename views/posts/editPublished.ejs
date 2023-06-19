@@ -8,7 +8,10 @@
         <textarea onkeyup="textAreaAdjust(this)" id="text-super" class="content-post" type="text" name="post" placeholder="Start Writting"><%=composeA.completeText%></textarea>
         <button class="button"  name="idEditCompose" value="<%=composeA.id%>">EDIT</button>
     </div>
-</form>
+        </form>
+        <form action="/makeDraft" method="post">
+            <button name="idEditCompose" class="button" value="<%=composeA.id%>">CONVERT TO DRAFT</button>
+        </form>
     </div>
 </div>
 

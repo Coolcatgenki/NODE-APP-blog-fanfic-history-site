@@ -143,8 +143,26 @@ app.post("/logout", function(req, res, next){
 /////////////////////////////////////////////////END AUTHENTICATION/////////////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////START COMPOSES ACTIONS/////////////////////////////////////////////////////////////////////////////////////////////////
+app.post("/makeDraft", async function(req, res){
+    if(req.isAuthenticated()){
+    const {idEditCompose}= req.body;
+    const publishContent= await composeModel.findOneAndUpdate({_id:idEditCompose}, {posted:false});
+      if(publishContent){
+        console.log("DesPublished!");
+        res.redirect("/JXfg4cTnhZdPRYqXuFrwvcJOUYzaoDkf");
+      }
+      else{
+        console.log("Error!");
+      }
+    }
+    else{
+        res.redirect("/");
+        }
+})
+
+
 app.post("/publish", async function(req, res){
-if(request.isAuthenticated()){
+if(req.isAuthenticated()){
 const {id}= req.body;
 const publishContent= await composeModel.findOneAndUpdate({_id:id}, {posted:true});
   if(publishContent){
@@ -156,7 +174,7 @@ const publishContent= await composeModel.findOneAndUpdate({_id:id}, {posted:true
   }
 }
 else{
-    response.redirect("/");
+    res.redirect("/");
     }
 })
 
