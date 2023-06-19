@@ -2,19 +2,30 @@
 
 <div class="wrapper">
     <div class="published-content">
-<form action="/publish" method="post">
-    <div class="publish-part">
-        <input type="text" class="content-post" name="title" placeholder="Title">
-        <textarea autofocus="true" onfocus="textAreaAdjust(this);" onkeyup="textAreaAdjust(this)" onclick="textAreaAdjust(this)" cols="40"  class="content-post" type="text" name="post" placeholder="Start Writting"></textarea>
-        <button class="button" type="submit" name="button1" value="publish">Publish</button>
-    </div>
+<form action="/draft" method="get">
+   <button>CREATE NEW DRAFT</button>
 </form>
 
    <div id="composes"> 
 <% composesA.forEach(function(compose){%>
    <div id="compose">
+    <%if(compose.title.replace(/\s+/g,"")===""){%>
+     <h1>Sin Titulo</h1>
+    <%}%>
+    <%if(compose.title.replace(/\s+/g,"")!==""){%>
     <h1><%=compose.title%></h1>
+    <%}%>
+    <%if(compose.posted===true){%>
+       <a class="edit-a" href= "/editPublished/<%=compose.id%>" >EDIT</a>
+    <%}%>
+    <%if(compose.posted===false){%>
     <a class="edit-a" href= "/edit/<%=compose.id%>" >EDIT</a>
+    <%}%>
+    <%if(compose.posted===false){%>
+    <form action="/publish" method="post">
+      <button name="id" value="<%=compose.id%>" class="publish-button">PUBLISH</button>
+    </form>
+    <%}%>
     <form action="/delete" method="post">
     <button class="delete-button"name="idDeleteCompose" value= "<%=compose.id%>"> DELETE</button>
     </form>

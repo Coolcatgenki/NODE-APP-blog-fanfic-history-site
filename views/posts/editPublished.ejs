@@ -1,0 +1,15 @@
+<%-include("../partials/head-publish");-%>
+
+<div class="wrapper">
+    <div class="published-content">
+        <form action="/editPublished" method="post" id="myForm">
+    <div class="publish-part">
+        <input type="text" name="title" value="<%=composeA.title%>" placeholder="Title" class="content-post">
+        <textarea onkeyup="textAreaAdjust(this)" id="text-super" class="content-post" type="text" name="post" placeholder="Start Writting"><%=composeA.completeText%></textarea>
+        <button class="button"  name="idEditCompose" value="<%=composeA.id%>">EDIT</button>
+    </div>
+</form>
+    </div>
+</div>
+
+<%-include("../partials/footer");-%>

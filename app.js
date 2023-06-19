@@ -10,13 +10,21 @@ const Strategy= require("passport-local");
 
 const app=express();
 
+app.set('trust proxy', 1);
+
 app.use(session({
     secret:process.env.SECRET,
     resave:false,
     saveUninitialized:false,
+    cookie: {
+        httpOnly: true,
+        secure: true,
+        sameSite: true,
+    }
 }))
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
@@ -60,6 +68,7 @@ const composeSchema= new mongoose.Schema({
     title:String,
     post:String,
     completeText:String,
+    posted: Boolean,
     urlName:String,
 });
 const composeModel= new mongoose.model("composes", composeSchema);
@@ -101,6 +110,7 @@ response.render("pages/about-us");
 
 /////////////////////////////////////////////////START AUTHENTICATION/////////////////////////////////////////////////////////////////////////////////////////////////
 app.get("/JXfg4cTnhZdPRYqXuFrwvcJOUYzaoDkf", async function(request, response){
+    response.set("Cache-control", "no-cache, private, no-store, must-revalidate, max-stal e=0, post-check=0, pre-check=0");
     if(request.isAuthenticated()){
         const composes= await composeModel.find({});
         response.render("posts/publish", {composesA: composes});
@@ -133,27 +143,45 @@ app.post("/logout", function(req, res, next){
 /////////////////////////////////////////////////END AUTHENTICATION/////////////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////START COMPOSES ACTIONS/////////////////////////////////////////////////////////////////////////////////////////////////
-app.post("/publish", async function(request, response){
+app.post("/publish", async function(req, res){
 if(request.isAuthenticated()){
-console.log(request.body);
-const title=request.body.title;
-const post=request.body.post;
-const compose= new composeModel({
-    title: title,
-    post: post.substr(0,(maxL)),
-    completeText: post, 
-    urlName:_.lowerCase(title),
-})
-await compose.save();
-response.redirect("/JXfg4cTnhZdPRYqXuFrwvcJOUYzaoDkf");
+const {id}= req.body;
+const publishContent= await composeModel.findOneAndUpdate({_id:id}, {posted:true});
+  if(publishContent){
+    console.log("Published!");
+    res.redirect("/JXfg4cTnhZdPRYqXuFrwvcJOUYzaoDkf");
+  }
+  else{
+    console.log("Error!");
+  }
 }
 else{
-response.redirect("/");
-}
+    response.redirect("/");
+    }
+})
+
+app.get("/draft", async function(request, response){
+    response.set("Cache-control", "no-cache, private, no-store, must-revalidate, max-stal e=0, post-check=0, pre-check=0");
+   if(request.isAuthenticated()){
+   const title="";
+   const completeText="";
+   const compose= new composeModel({
+       title: "",
+       completeText: "",
+       post: completeText.substr(0,(maxL)),
+       posted: false, 
+       urlName:_.lowerCase(title),
+   })
+   await compose.save();
+   response.redirect("/edit/"+ compose._id);
+   }
+   else{
+   response.redirect("/");
+   }
 })
 
 app.get("/edit/:composeId", async function(req, res){
-
+res.set("Cache-control", "no-cache, private, no-store, must-revalidate, max-stal e=0, post-check=0, pre-check=0");
 if(req.isAuthenticated()){
  const composeId= req.params.composeId;
  const findCompose= await composeModel.findOne({_id: composeId});
@@ -164,13 +192,49 @@ res.redirect("/");
 }
 })
 
+app.get("/editPublished/:composeId", async function(req, res){
+    res.set("Cache-control", "no-cache, private, no-store, must-revalidate, max-stal e=0, post-check=0, pre-check=0");
+    if(req.isAuthenticated()){
+     const composeId= req.params.composeId;
+     const findCompose= await composeModel.findOne({_id: composeId});
+     res.render("posts/editPublished", {composeA:findCompose});
+    }
+    else{
+    res.redirect("/");
+    }
+})
+
+app.post("/editPublished", async function(req, res){
+
+    if(req.isAuthenticated()){
+     const {title, post, idEditCompose}= req.body;
+     console.log(req.body);
+     const realTitle= _.lowerCase(title);
+     const findCompose= await composeModel.findOneAndUpdate({_id: idEditCompose}, {title: title, post: post.substr(0,(maxL)), completeText: post, urlName:realTitle});
+     if(findCompose){
+        console.log("editing...Published");
+        res.redirect("/JXfg4cTnhZdPRYqXuFrwvcJOUYzaoDkf")
+     }
+     else{
+        res.send("ERROR!");
+     }
+    }
+    else{
+    res.redirect("/");
+    }
+})
+
 app.post("/edit", async function(req, res){
 
 if(req.isAuthenticated()){
  const {title, post, idEditCompose}= req.body;
- const findCompose= await composeModel.findOneAndUpdate({_id: idEditCompose}, {title: title, post: post.substr(0,(maxL)), completeText: post});
+ console.log(req.body);
+ const realTitle= _.lowerCase(title);
+ const findCompose= await composeModel.findOneAndUpdate({_id: idEditCompose}, {title: title, post: post.substr(0,(maxL)), completeText: post, urlName:realTitle});
  if(findCompose){
-    res.redirect("/");
+    console.log("editing...");
+    res.statusCode = 204;
+    res.end();
  }
  else{
     res.send("ERROR!");
@@ -185,7 +249,7 @@ app.post("/delete", async function(req, res){
     const composeId= req.body.idDeleteCompose;
     const deleteCompose= await composeModel.findOneAndDelete({_id:composeId});
     if(deleteCompose){
-        res.redirect("/");
+        res.redirect("/JXfg4cTnhZdPRYqXuFrwvcJOUYzaoDkf");
      }
      else{
         res.send("ERROR!");

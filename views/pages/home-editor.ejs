@@ -7,6 +7,7 @@
   <p>This is a spectacular story about a boy who will pass through a lot of things in this sample history!</p>
 </div>
 <%composesA.forEach(function(x){%>
+  <%if(x.posted){%>
   <div class="posts">
   <h1><%=x.title%></h1>
   <p class="text"><%=x.post%> 
@@ -15,6 +16,7 @@
     <%}%>
   </p>
 </div>
+<%}%>
 <%})%>
 </div>
 </div>

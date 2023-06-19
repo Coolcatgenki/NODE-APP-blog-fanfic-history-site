@@ -1,12 +1,15 @@
 <%-include("../partials/head");-%>
 
-<div class="bod">
- <div class="wrapper">
-   <div class="published-content-see">
-    <h1> <%=titleU%></h1>
-    <p> <%=postU%> </p>
-   </div>
- </div>
+
+<div class="wrapper">
+  <div class="published-content">
+<form action="/edit" method="post">
+  <div class="publish-part">
+      <h1 class="title-post"> <%=titleU%></h1>
+      <textarea onkeyup="textAreaAdjust(this)" id="text-super" onclick="textAreaAdjust(this)" class="content-post" disabled="readonly" type="text" name="post" placeholder="Start Writting"><%=postU%></textarea>
+  </div>
+</form>
+  </div>
 </div>
 
  

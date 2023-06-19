@@ -3,6 +3,17 @@
     element.style.height = "1px";
     element.style.height = (25+element.scrollHeight)+"px";
   }
+  if(document.getElementById("text-super")){
+  textAreaAdjust(document.getElementById("text-super"));
+  }
+  function submitForm(event){
+//Preventing page refresh
+  event.preventDefault();
+  return false
+  }
+  function submit(){
+  document.getElementById("myForm").addEventListener('onsubmit', submitForm);
+  }
   </script>
 
 <footer>
