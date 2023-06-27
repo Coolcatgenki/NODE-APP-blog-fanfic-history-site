@@ -120,7 +120,7 @@ app.get("/JXfg4cTnhZdPRYqXuFrwvcJOUYzaoDkf", async function(request, response){
     }
 })
 
-app.post("/JXfg4cTnhZdPRYqXuFrwvcJOUYzaoDkf", passport.authenticate("local", {failureRedirect: '/', successRedirect: "/JXfg4cTnhZdPRYqXuFrwvcJOUYzaoDkf"}))
+app.post("/JXfg4cTnhZdPRYqXuFrwvcJOUYzaoDkf", passport.authenticate("local", {failureMessage: true, successRedirect: "/JXfg4cTnhZdPRYqXuFrwvcJOUYzaoDkf"}))
 
 app.post("/logout", function(req, res, next){
     req.session.passport= null;
@@ -243,15 +243,14 @@ app.post("/editPublished", async function(req, res){
 })
 
 app.post("/edit", async function(req, res){
-
 if(req.isAuthenticated()){
- const {title, post, idEditCompose}= req.body;
+ const {title, post, idEditCompose}= req.body.data;
  console.log(req.body);
  const realTitle= _.lowerCase(title);
  const findCompose= await composeModel.findOneAndUpdate({_id: idEditCompose}, {title: title, post: post.substr(0,(maxL)), completeText: post, urlName:realTitle});
  if(findCompose){
     console.log("editing...");
-    res.status(204).send();
+    res.end();
  }
  else{
     res.send("ERROR!");

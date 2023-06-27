@@ -2,11 +2,11 @@
 
 <div class="wrapper">
     <div class="published-content">
-        <form action="/edit" method="post" id="myForm">
+    <form id="myForm">
     <div class="publish-part">
-        <input type="text" name="title" value="<%=composeA.title%>" placeholder="Title" class="content-post" oninput="submit()" >
-        <textarea onkeyup="textAreaAdjust(this)" id="text-super" oninput="submit()"  class="content-post" type="text" name="post" placeholder="Start Writting"><%=composeA.completeText%></textarea>
-        <input class="button" id="butto-sub" type="text" name="idEditCompose" value= "<%=composeA.id%>" >
+        <input type="text" name="title" value="<%=composeA.title%>" placeholder="Title" class="content-post" oninput="submitF()" >
+        <textarea onkeyup="textAreaAdjust(this)" id="text-super" oninput="submitF()"  class="content-post" type="text" name="post" placeholder="Start Writting"><%=composeA.completeText%></textarea>
+        <input class="button" id="butto-sub" type="text" name="idEditCompose" value= "<%=composeA.id%>">
     </div>
 </form>
     </div>
