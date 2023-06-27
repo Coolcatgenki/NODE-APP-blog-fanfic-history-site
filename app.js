@@ -16,11 +16,11 @@ app.use(session({
     secret:process.env.SECRET,
     resave:false,
     saveUninitialized:false,
-    cookie: {
+    /*cookie: {
         httpOnly: true,
         secure: true,
         sameSite: true,
-    }
+    }*/
 }))
 app.use(passport.initialize());
 app.use(passport.session());
@@ -251,8 +251,7 @@ if(req.isAuthenticated()){
  const findCompose= await composeModel.findOneAndUpdate({_id: idEditCompose}, {title: title, post: post.substr(0,(maxL)), completeText: post, urlName:realTitle});
  if(findCompose){
     console.log("editing...");
-    res.statusCode = 204;
-    res.end();
+    res.status(204).send();
  }
  else{
     res.send("ERROR!");
